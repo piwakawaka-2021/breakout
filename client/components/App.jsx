@@ -1,21 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect, Component } from 'react'
 
-import Nav from './Nav'
-import Home from './Home'
+const App = () => {
+  const gameWidth = 800
+  const gameHeight = document.documentElement.clientHeight
+  useEffect(() => {
+    let gameArea = document.getElementById('gameCanvas')
+    console.log(gameArea)
+  })
 
-function App () {
   return (
-    <>
-      <div className='title'>
-        <img src='/images/color_earth.gif' />
-        <h1>Navigating the worldwide routes</h1>
-      </div>
-      {/* This 'main' div is only for styling (so we can use flexbox) */}
-      <div className='main'>
-        <Nav />
-        <Home />
-      </div>
-    </>
+    <canvas className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
   )
 }
 
