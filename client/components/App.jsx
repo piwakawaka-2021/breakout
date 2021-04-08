@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useRef } from "react"
-import data from "./data.js"
+import React, { useState, useEffect, useRef } from 'react'
+import data from './data.js'
+import Header from './Header'
+import LeaderBoard from './LeaderBoard.jsx'
+import Player from './Player.jsx'
 
 const App = () => {
   window.addEventListener("keydown", checkKeyDown, false)
@@ -91,12 +94,15 @@ const App = () => {
   }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="gameCanvas"
-      width={gameWidth}
-      height={gameHeight}
-    ></canvas>
+    <>
+      <Header />
+      <div className="main-container">
+        <Player />
+        <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
+        <LeaderBoard />
+      </div>
+      
+    </>
   )
 }
 

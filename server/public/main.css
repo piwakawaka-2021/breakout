@@ -1,5 +1,6 @@
 body {
   background-color: bisque;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 a {
@@ -9,11 +10,38 @@ a {
 .gameCanvas {
   border: 1px solid black;
   background-color: crimson;
+  width: 50%;
+}
+
+.heading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 h1 {
   font-family: 'Press Start 2P', cursive;
+  margin: 3rem;
 }
 h2{
   font-family: 'Press Start 2P', cursive;
+}
+
+
+#app {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.leaderboard {
+  width: 20vw;
+}
+
+.player-info {
+  width: 20vw;
 }
