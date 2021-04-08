@@ -8,3 +8,5 @@ const data = [
         score: 69
     }
 ]
+
+module.exports = data
