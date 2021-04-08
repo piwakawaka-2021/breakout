@@ -11,9 +11,21 @@ a {
   background-color: crimson;
 }
 
+.heading {
+  width: 100%;
+  
+}
+
 h1 {
   font-family: 'Press Start 2P', cursive;
 }
 h2{
   font-family: 'Press Start 2P', cursive;
 }
+
+#app {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+

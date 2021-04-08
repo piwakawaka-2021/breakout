@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import data from './data.js'
+import Header from './Header'
 
 const App = () => {
   const ball = data.ball
@@ -26,7 +27,10 @@ const App = () => {
   }, [])
 
   return (
-    <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
+    <>
+      <Header />
+      <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
+    </>
   )
 }
 
