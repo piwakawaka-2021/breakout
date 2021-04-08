@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import data from './data.js'
 import Header from './Header'
+import LeaderBoard from './LeaderBoard.jsx'
+import Player from './Player.jsx'
 
 const App = () => {
   const ball = data.ball
@@ -29,7 +31,12 @@ const App = () => {
   return (
     <>
       <Header />
-      <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
+      <div className="main-container">
+        <Player />
+        <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
+        <LeaderBoard />
+      </div>
+      
     </>
   )
 }
