@@ -24,13 +24,13 @@ function Player() {
 
     let { name, highscore } = formData
 
-
+    console.log(" Player 1 go" + player.name)
 
     return (
         <div className="player-info">
             <h2>Player 1</h2>
             <h3>{formData.name}</h3>
-            <h3>High score: {formData.highscore}</h3>
+            <h3>{ (formData.highscore === null )? "" : `High score: ${formData.highscore}`}</h3>
 
             <form onSubmit= { handleSubmit } className="player-form">
                 <label className="form-label">Enter name:
