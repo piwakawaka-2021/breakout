@@ -14,13 +14,14 @@ import Game from "./Game"
 
 const App = () => {
   const [playState, setPlayState] = useState(true)
+  const [player, setPlayer] = useState({name: null, highScore: null})
 
   return (
     <>
       <Header />
       <div className="main-container">
-        <Player />
-        {playState ? <Game /> : <StartMenu state={playState} />}
+        <Player player={setPlayer}/>
+        {playState ? <Game /> : <StartMenu player={player} state={playState} />}
 
         {/* <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas> */}
         <LeaderBoard />

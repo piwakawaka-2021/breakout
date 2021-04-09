@@ -6,7 +6,7 @@ function StartMenu(props) {
     return (
         <div className="startMenu">
             <h1>Ready player 1</h1>
-            { player.name ? "Get set!!" : "Enter details on side bar"}
+            { props.player.name ? "Get set!!" : "Enter details on side bar"}
             {/* {console.log(" Player 1 go" + player.name)} */}
         </div>
     )

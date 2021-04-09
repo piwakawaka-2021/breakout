@@ -131,6 +131,7 @@ function Game() {
       c.closePath()
       c.strokeStyle = "rgba(102, 102, 102, 1)"
       c.stroke()
+      console.log(paddle.x, paddle.y);
 
       //draw bricks
 
