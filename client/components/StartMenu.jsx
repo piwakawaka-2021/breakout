@@ -1,13 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import player from './player-data'
 
 
 function StartMenu(props) {
+
+    const handleSubmit = (evt) => {
+    
+        props.setState(true)
+        evt.preventDefault()
+    
+        
+    }
+
+
     return (
         <div className="startMenu">
             <h1>Ready player 1</h1>
-            { player.name ? "Get set!!" : "Enter details on side bar"}
-            {/* {console.log(" Player 1 go" + player.name)} */}
+            { props.player.name ? "Get set!!" : "Enter details on side bar"}
+            <form onSubmit= { handleSubmit } >
+                <button type="submit">Start</button>
+            </form>
         </div>
     )
 }

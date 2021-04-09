@@ -59,12 +59,13 @@ h2{
   background-color: antiquewhite;
 }
 
-.form-button {
+button {
   margin: 2rem;
   font-family: 'Courier New', Courier, monospace;
+  border-radius: 0px;
 }
 
-.form-button:hover {
+button:hover {
   background-color: white;
 }
 
