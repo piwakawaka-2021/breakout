@@ -1,133 +1,163 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from "react"
 
-import data from './data.js'
+import data from "./data.js"
 
 function Game() {
+  window.addEventListener("keydown", checkKeyDown, false)
+  window.addEventListener("keyup", checkKeyUp, false)
 
-    window.addEventListener("keydown", checkKeyDown, false)
-    window.addEventListener("keyup", checkKeyUp, false,)
-    var deltaX = 0
-    var deltaY = 0
+  const ball = data.ball
+  const paddle = data.paddle
+  const gameWidth = 800
+  const gameHeight = 500
+  // const gameHeight = document.documentElement.clientHeight
+  const canvasRef = useRef(null)
 
-    const ball = data.ball
-    const paddle = data.paddle
-    const gameWidth = 800
-    const gameHeight = 500
-    // const gameHeight = document.documentElement.clientHeight
-    const canvasRef = useRef(null)
+  //init bricks
+  let [bricks, setBricks] = useState(data.generateBricks(7, 3))
 
-    function checkKeyDown(e) {
-        switch (e.key) {
-            case "ArrowRight":
-                paddle.moveRight = true
-                e.preventDefault()
-
-                // deltaX = Math.max(paddle.x - 20, -170)
-                break
-            case "ArrowLeft":
-                paddle.moveLeft = true
-                e.preventDefault()
-
-                // deltaX = Math.min(paddle.x + 20, gameWidth - 230)
-                break
-        }
-        // e.preventDefault()
+  function checkKeyDown(e) {
+    switch (e.keyCode) {
+      case 39:
+        paddle.moveRight = true
+        break
+      case 37:
+        paddle.moveLeft = true
+        break
     }
+    e.preventDefault()
+  }
 
-    function checkKeyUp(e) {
-        switch (e.key) {
-            case "ArrowRight":
-                paddle.moveRight = false
-                // deltaX = Math.max(paddle.x - 20, -170)
-                break
-            case "ArrowLeft":
-                paddle.moveLeft = false
-                // deltaX = Math.min(paddle.x + 20, gameWidth - 230)
-                break
-        }
-        // e.preventDefault()
+  function checkKeyUp(e) {
+    switch (e.keyCode) {
+      case 39:
+        paddle.moveRight = false
+        break
+      case 37:
+        paddle.moveLeft = false
+        break
     }
+    e.preventDefault()
+  }
 
-    useEffect(() => {
-        const render = () => {
-            //establish context
-            const canvas = canvasRef.current
-            const c = canvas.getContext("2d")
+  useEffect(() => {
+    const render = () => {
+      //establish context
+      const canvas = canvasRef.current
+      const c = canvas.getContext("2d")
 
-            //clear canvas
+      //clear canvas
+      c.clearRect(0, 0, canvas.width, canvas.height)
+
+      //draw ball
+      c.beginPath()
+      c.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
+      c.fill()
+      ball.x += ball.xSpeed
+      ball.y += ball.ySpeed
+
+      // move paddle
+      if (paddle.x + paddle.w <= gameWidth && paddle.moveRight) paddle.x += 7
+      if (paddle.x >= 0 && paddle.moveLeft) paddle.x -= 7
+
+      //check ball dying
+      if (ball.y + ball.r >= canvas.height) {
+        //call function to save name if high score
+        //prompt to start new game
+        function itReset() {
+          var erase = confirm("New Game?")
+          if (erase == true) {
             c.clearRect(0, 0, canvas.width, canvas.height)
-
-            //draw ball
-            c.beginPath()
-            c.arc(ball.x, ball.y, ball.r, 0, 2 * Math.PI)
-            c.fill()
-            ball.x += ball.xSpeed
-            ball.y += ball.ySpeed
-
-            // move paddle
-            if (paddle.x + 30 <= gameWidth && paddle.moveRight) paddle.x += 6
-            if (paddle.x - 30 >= 0 && paddle.moveLeft) paddle.x -= 6
-
-            //check ball dying
-            if (ball.y + ball.r >= canvas.height) {
-
-                //call function to save name if high score
-                //prompt to start new game
-                function itReset() {
-                    var erase = confirm("New Game?");
-                    if (erase == true) {
-                        c.clearRect(0, 0, canvas.width, canvas.height);
-                        ball.x = 50;
-                        ball.y = 50;
-                        paddle.x = innerWidth / 2;
-                        paddle.moveRight = false;
-                        paddle.moveLeft = false;
-                    } else {
-                        ball.xSpeed = 0;
-                        ball.ySpeed = 0;
-                        ball.y = canvas.height - ball.r - 1
-                    }
-                }
-                itReset()
-
-            }
-            else {
-                //check ball collision
-                if (ball.x + ball.r >= canvas.width || ball.x - ball.r <= 0)
-                    ball.xSpeed = -ball.xSpeed
-                if (ball.y - ball.r <= 0)
-                    ball.ySpeed = -ball.ySpeed
-                if (
-                    ball.x - ball.r <= paddle.x + paddle.w &&
-                    ball.x + ball.r >= paddle.x - paddle.w &&
-                    ball.y + ball.r >= paddle.y - 10
-                ) {
-                    ball.ySpeed = -ball.ySpeed
-                }
-            }
-
-            //draw paddle
-            c.beginPath()
-            c.lineTo(paddle.x - paddle.w, paddle.y)
-            c.lineTo(paddle.x + paddle.w, paddle.y)
-            c.closePath()
-            c.lineWidth = 10
-            c.strokeStyle = "rgba(102, 102, 102, 1)"
-            c.stroke()
-
-            requestAnimationFrame(render)
+            ball.x = 50
+            ball.y = 50
+            paddle.x = innerWidth / 2
+            paddle.moveRight = false
+            paddle.moveLeft = false
+            bricks = data.generateBricks(7, 3)
+          } else {
+            ball.xSpeed = 0
+            ball.ySpeed = 0
+            ball.y = canvas.height - ball.r - 1
+          }
         }
-        render()
-    }, [])
-    return (
-        <>
-            <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
-        </>
-    )
+        itReset()
+      } else {
+        //check collision with wall
+        if (ball.x + ball.r >= canvas.width || ball.x - ball.r <= 0)
+          ball.xSpeed = -ball.xSpeed
+        if (ball.y + ball.r >= canvas.height || ball.y - ball.r <= 0)
+          ball.ySpeed = -ball.ySpeed
+      }
+
+      //check ball collision with paddle
+      const paddleCheckResult = data.checkBrickCollision(ball, paddle)
+      if (paddleCheckResult.hit) {
+        if (paddleCheckResult.axis === "X") {
+          ball.xSpeed = -ball.xSpeed
+        } else if (paddleCheckResult.axis === "Y") {
+          ball.ySpeed = -ball.ySpeed
+        }
+      }
+
+      //check ball collisions with bricks
+
+      for (let i = 0; i < bricks.length; i++) {
+        if (bricks[i].intact) {
+          let brickCheckResult = data.checkBrickCollision(ball, bricks[i])
+          if (brickCheckResult.hit) {
+            if (brickCheckResult.axis === "X") {
+              ball.xSpeed = -ball.xSpeed
+            } else if (brickCheckResult.axis === "Y") {
+              ball.ySpeed = -ball.ySpeed
+            }
+            bricks[i].intact = false
+
+            // const newBrick = {
+            //   ...bricks[i],
+            //   intact: false,
+            // }
+
+            // const newBricks = [...bricks]
+            // newBricks[i] = newBricks
+            // setBricks(newBricks)
+          }
+        }
+      }
+
+      //draw paddle
+      c.beginPath()
+      c.fillStyle = "green"
+      c.fillRect(paddle.x, paddle.y, paddle.w, paddle.h)
+      c.closePath()
+      c.strokeStyle = "rgba(102, 102, 102, 1)"
+      c.stroke()
+
+      //draw bricks
+
+      for (let i = 0; i < bricks.length; i++) {
+        if (bricks[i].intact) {
+          c.beginPath()
+          c.fillStyle = "rgba(80, 46, 78, 1)"
+          c.fillRect(bricks[i].x, bricks[i].y, bricks[i].w, bricks[i].h)
+          c.closePath()
+          c.stroke()
+        }
+      }
+
+      requestAnimationFrame(render)
+    }
+    render()
+  }, [])
+  return (
+    <>
+      <canvas
+        ref={canvasRef}
+        className="gameCanvas"
+        width={gameWidth}
+        height={gameHeight}
+      ></canvas>
+    </>
+  )
 }
 
 export default Game
-
-
-
-
