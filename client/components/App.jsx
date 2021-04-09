@@ -17,8 +17,6 @@ const App = () => {
   
   const [ playState, setPlayState] = useState(true)
 
-  
-
   return (
     <>
       <Header />
