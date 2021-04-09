@@ -1,5 +1,12 @@
+
+// React stuff
 import React, { useState, useEffect, useRef } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+
+// Data stuff
 import data from './data.js'
+
+// Component stuff
 import Header from './Header'
 import LeaderBoard from './LeaderBoard.jsx'
 import Player from './Player.jsx'
@@ -7,6 +14,7 @@ import Player from './Player.jsx'
 const App = () => {
   window.addEventListener("keydown", checkKeyDown, false)
   window.addEventListener("keyup", checkKeyUp, false)
+
 
   const ball = data.ball
   const paddle = data.paddle
@@ -16,27 +24,30 @@ const App = () => {
 
 
   function checkKeyDown(e) {
-    switch (e.keyCode) {
-      case 39:
+    switch (e.key) {
+      case "ArrowRight":
         paddle.moveRight = true
+        e.preventDefault()
         break
-      case 37:
+        
+        case "ArrowLeft":
         paddle.moveLeft = true
+        e.preventDefault()
         break
     }
-    e.preventDefault()
+    // e.preventDefault()
   }
 
   function checkKeyUp(e) {
-    switch (e.keyCode) {
-      case 39:
+    switch (e.key) {
+      case "ArrowRight":
         paddle.moveRight = false
         break
-      case 37:
+      case "ArrowLeft":
         paddle.moveLeft = false
         break
     }
-    e.preventDefault()
+    // e.preventDefault()
   }
 
   useEffect(() => {
@@ -117,7 +128,7 @@ const App = () => {
         <canvas ref={canvasRef} className="gameCanvas" width={gameWidth} height={gameHeight}></canvas>
         <LeaderBoard />
       </div>
-      
+
     </>
   )
 }
