@@ -15,9 +15,10 @@ function LeaderBoard() {
                             {player.name}
                         </li>
                     )
-                })}
-                
+                })}   
             </ul>
+            <h3>Current Score</h3>
+            <p> --- Display timer ----</p>
         </div>
     )
 }
