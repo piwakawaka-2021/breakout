@@ -17,12 +17,26 @@ a {
   width: 100%;
   display: flex;
   justify-content: center;
+
 }
 
 h1 {
   font-family: 'Press Start 2P', cursive;
   margin: 3rem;
+  animation: blinker 1s linear infinite;
 }
+
+/* .blink_me {
+  animation: blinker 1s linear infinite;
+} */
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+
 h2{
   font-family: 'Press Start 2P', cursive;
 }

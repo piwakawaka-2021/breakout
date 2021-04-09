@@ -13,8 +13,62 @@ import StartMenu from "./StartMenu"
 import Game from "./Game"
 
 const App = () => {
+  const LBdata = [
+    {
+      name: "Elwin",
+      score: 40
+    },
+    {
+      name: "jack",
+      score: 69
+    },
+    {
+      name: "peter",
+      score: 12
+    },
+    {
+      name: "pan",
+      score: 108
+    },
+    {
+      name: "Elwin",
+      score: 40
+    },
+    {
+      name: "jack",
+      score: 69
+    },
+    {
+      name: "peter",
+      score: 12
+    },
+    {
+      name: "pan",
+      score: 108
+    },
+    {
+      name: "Elwin",
+      score: 40
+  },
+  {
+      name: "jack",
+      score: 69
+  },
+  {
+    name: "peter",
+    score: 12
+},
+{
+    name: "pan",
+    score: 108
+}
+  ]
+
+
   const [playState, setPlayState] = useState(false)
   const [player, setPlayer] = useState({ name: null, highScore: null })
+  const [leaderboard, setLeaderBoard] = useState(LBdata)
+
 
   return (
     <>
@@ -23,7 +77,7 @@ const App = () => {
 
         <Player player={player} setPlayer={setPlayer} />
         {(playState && player.name) ? <Game /> : <StartMenu player={player} setState={setPlayState} />}
-        <LeaderBoard />
+        <LeaderBoard leaderboard={leaderboard} setLeaderBoard={setLeaderBoard} />
       </div>
     </>
   )

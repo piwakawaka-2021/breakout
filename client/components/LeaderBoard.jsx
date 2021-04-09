@@ -1,15 +1,28 @@
 import React from "react"
 
 // DATA
-import data from "./leaderboard-data.js"
+import data, { sort } from "./leaderboard-data.js"
 
-function LeaderBoard() {
+function LeaderBoard(props) {
+
+  function compare( a, b ) {
+    if ( a.score < b.score ){
+      return -1;
+    }
+    if ( a.score > b.score ){
+      return 1;
+    }
+    return 0;
+  }
+
+  let sortedboard = props.leaderboard.sort( compare ).reverse().slice(0,9)
+
   return (
     <div className="leaderboard">
       <h2>Leader board</h2>
-      {console.log(data)}
+      {/* {console.log(props.leaderboard)} */}
       <ol className="leaderList">
-        {data.map((player, i) => {
+        {sortedboard.map((player, i) => {
           return <li key={i}>{player.name + " Score: " + player.score}</li>
         })}
       </ol>
