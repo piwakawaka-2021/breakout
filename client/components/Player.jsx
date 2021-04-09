@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import player from './player-data'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-function Player() {
-    const [showDeets, setShowDeets] = useState(false)
+
+function Player(props) {
     const [formData, setFormData] = useState({  name: '', highscore: null })
 
     const handleChange = (evt) => {
@@ -11,15 +10,21 @@ function Player() {
             ...formData,
             [evt.target.name]: evt.target.value
         }
-        console.log("Form data "+ newData.name + "   Evt data   " + evt.target.value);
-        player.name = evt.target.value
+        // console.log("Form data "+ newData.name + "   Evt data   " + evt.target.value);
+
+        const playerData = {
+            ...props.player,
+            name: evt.target.value
+        }
+        props.setPlayer(playerData)
+
         setFormData(newData)
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
         console.log("Player: "+player.name)
-        setShowDeets(true)
+    
     }
 
     let { name, highscore } = formData
