@@ -14,6 +14,7 @@ import StartMenu from './StartMenu'
 import Game from './Game'
 
 const App = () => {
+  
   const [ playState, setPlayState] = useState(true)
 
   
