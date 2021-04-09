@@ -67,3 +67,13 @@ h2{
 .form-button:hover {
   background-color: white;
 }
+
+.leaderList{
+  text-decoration: none;
+}
+
+.startMenu {
+  min-width: 50%;
+  min-height: 50%;
+  border: 5px inset;
+}

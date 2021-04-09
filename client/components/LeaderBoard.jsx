@@ -8,15 +8,15 @@ function LeaderBoard() {
         <div className="leaderboard">
             <h2>Leader board</h2>
             {console.log(data)}
-            <ul>
+            <ol className="leaderList">
                 {data.map((player, i )=> {
                     return (
                         <li key={i}>
-                            {player.name}
+                            {player.name + " Score: "+ player.score}
                         </li>
                     )
                 })}   
-            </ul>
+            </ol>
             <h3>Current Score</h3>
             <p> --- Display timer ----</p>
         </div>
